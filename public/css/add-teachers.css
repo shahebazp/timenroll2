@@ -1,0 +1,97 @@
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-btn {
+    background: #fff;
+    color: #00a896;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.glass-box {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(18px);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+
+.field input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.save-btn {
+    margin-top: 16px;
+    background: #fff;
+    color: #00a896;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.teacher-card {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(18px);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+}
+
+.teacher-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teacher-actions button {
+    margin-left: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.edit-btn {
+    background: #fff;
+    color: #00a896;
+}
+
+.delete-btn {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+.teacher-details {
+    margin-top: 10px;
+    font-size: 14px;
+}

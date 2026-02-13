@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #00c9a7, #00b4d8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Login Card */
+.login-container {
+  width: 100%;
+  max-width: 380px;
+  padding: 34px 28px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+  color: #ffffff;
+  position: relative;
+  z-index: 3;
+
+  animation: floatIn 0.9s ease forwards;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+@keyframes floatIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Logo */
+.logo {
+  display: block;
+  margin: 0 auto 12px;
+  max-width: 220px;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+/* Welcome text */
+.welcome-text {
+  text-align: center;
+  font-size: 15px;
+  opacity: 0.9;
+  margin-bottom: 28px;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  margin-bottom: 20px;
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+  transform: scale(1.02);
+}
+
+/* Login button */
+button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: #ffffff;
+  color: #00a896;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* Forgot password */
+.forgot {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* Cursor Glow */
+#cursor-glow {
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle,
+      rgba(255, 255, 255, 0.35) 0%,
+      rgba(0, 201, 167, 0.25) 40%,
+      transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  mix-blend-mode: overlay;
+  transition: opacity 0.25s ease;
+}

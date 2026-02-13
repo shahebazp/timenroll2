@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Students | TimeEnroll</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        /* Specific styles for the Import Box */
+        .import-box {
+            background: #e1f5fe;
+            border: 1px dashed #0288d1;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .step {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #455a64;
+        }
+
+        .step b {
+            color: #0277bd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-box">
+            <img src="../assets/images/timenroll-logo-short.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="add-teachers.html">Teachers</a>
+            <a href="add-students.html" class="active">Students</a>
+            <a href="add-classes.html">Classes</a>
+            <a href="timetable.html">Timetable</a>
+            <a href="#" onclick="logout()" style="margin-top: 20px; color: #ffadad;">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div>
+                <button onclick="history.back()"
+                    style="background:none; border:none; color:#666; cursor:pointer; font-size:14px;">← Back</button>
+                <h1 class="header-title" id="title">Class Students</h1>
+            </div>
+            <div>
+                <button class="btn-primary" style="background:#0288d1; margin-right:10px;" onclick="toggleImport()">📂
+                    Import Excel</button>
+                <button class="btn-primary" onclick="toggleForm()">+ Add Student</button>
+            </div>
+        </div>
+
+        <div id="importBox" class="import-box">
+            <h3 style="margin-bottom:15px; color:#0277bd;">Import from Excel</h3>
+
+            <div class="step"><b>Step 1:</b> Download the format file to see how to arrange data.</div>
+            <button class="action-btn"
+                style="background:#fff; border:1px solid #0288d1; color:#0288d1; margin-bottom:15px;"
+                onclick="downloadTemplate()">⬇ Download Template</button>
+
+            <div class="step"><b>Step 2:</b> Fill your data and upload the Excel/CSV file here.</div>
+            <input type="file" id="excelFile" accept=".csv, .xlsx, .xls"
+                style="background:#fff; padding:10px; border-radius:8px;">
+
+            <button class="btn-primary" style="margin-left:10px;" onclick="processImport()">Upload & Import</button>
+            <button class="action-btn" onclick="toggleImport()"
+                style="margin-left:10px; background:none;">Cancel</button>
+        </div>
+
+        <div class="glass-panel" id="studentForm" style="display:none; margin-bottom:30px;">
+            <h3 style="margin-bottom:20px;">Student Details</h3>
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>Roll No <span style="color:red">*</span></label>
+                    <input id="roll" type="number" placeholder="101">
+                </div>
+
+                <div class="input-group">
+                    <label>First Name <span style="color:red">*</span></label>
+                    <input id="fname" oninput="onlyLetters(this)" placeholder="John">
+                </div>
+
+                <div class="input-group">
+                    <label>Middle Name <span style="color:red">*</span></label>
+                    <input id="mname" oninput="onlyLetters(this)" placeholder="William">
+                </div>
+
+                <div class="input-group">
+                    <label>Last Name <span style="color:red">*</span></label>
+                    <input id="lname" oninput="onlyLetters(this)" placeholder="Doe">
+                </div>
+
+                <div class="input-group">
+                    <label>Email (Optional)</label>
+                    <input id="email" type="email" placeholder="student@example.com">
+                </div>
+
+                <div class="input-group">
+                    <label>Mobile (Optional)</label>
+                    <input id="mobile" type="tel" maxlength="10" oninput="onlyNumbers(this)" placeholder="9876543210">
+                </div>
+
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button class="btn-primary" onclick="saveStudent()">Save Student</button>
+                <button class="action-btn" onclick="toggleForm()"
+                    style="background:#eee; color:#333; padding: 12px 20px; margin-left:10px;">Cancel</button>
+            </div>
+        </div>
+
+        <div id="list">
+        </div>
+    </main>
+
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/class-students.js"></script>
+</body>
+
+</html>

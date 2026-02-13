@@ -1,0 +1,28 @@
+.class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.class-card {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(18px);
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+}
+
+.count {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.open-btn {
+    margin-top: 10px;
+    background: #fff;
+    color: #00a896;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}

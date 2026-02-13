@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Timetable | timeNroll</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/timetable.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-box">
+            <img src="../assets/images/timenroll-logo-short.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="add-teachers.html">Teachers</a>
+            <a href="add-students.html">Students</a>
+            <a href="add-classes.html">Classes</a>
+            <a href="timetable.html" class="active">Timetable</a>
+            <a href="#" onclick="logout()" style="margin-top: 20px; color: #ffadad;">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <h1 class="header-title">Timetable Management</h1>
+        <p class="header-subtitle">Create and edit schedules</p>
+
+        <div class="glass-panel controls-row">
+            <div class="control-group">
+                <label>Select Class</label>
+                <select id="classSelect" onchange="loadTimetable()">
+                    <option value="">Loading classes...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="timetable-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <tr>
+                        <td colspan="7" style="padding:40px; color:#aaa;">Select a class to load timetable</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="sessionModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 id="modalTitle">Add Session</h3>
+
+            <label>Session Type</label>
+            <select id="sType" onchange="toggleBatches()">
+                <option value="Theory">Theory (1 Slot)</option>
+                <option value="Practical">Practical (2 Slots - Batch A/B)</option>
+            </select>
+
+            <label>Subject Name</label>
+            <input type="text" id="sSubject" placeholder="e.g. Data Structures">
+
+            <div id="theoryInputs">
+                <label>Teacher</label>
+                <select id="sTeacher" class="teacher-list">
+                    <option value="">Loading teachers...</option>
+                </select>
+            </div>
+
+            <div id="batchInputs" style="display:none;">
+                <div style="display:flex; gap:10px;">
+                    <div style="flex:1">
+                        <label>Batch A Teacher</label>
+                        <select id="sTeacherA" class="teacher-list"></select>
+                    </div>
+                    <div style="flex:1">
+                        <label>Batch B Teacher</label>
+                        <select id="sTeacherB" class="teacher-list"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('sessionModal')">Cancel</button>
+                <button class="btn-save" onclick="saveSession()">Save</button>
+                <button id="btnDelete" class="btn-delete" onclick="deleteSession()"
+                    style="display:none; margin-left:auto;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script type="module" src="../js/timetable.js"></script>
+
+</body>
+
+</html>

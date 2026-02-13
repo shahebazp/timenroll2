@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Teachers | timeNroll</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        /* TOP BAR */
+        .top-action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-add-new {
+            background: #00cec9;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 206, 201, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-add-new:hover {
+            transform: translateY(-2px);
+            background: #01b8b4;
+        }
+
+        /* TEACHER LIST CARD */
+        .teacher-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            border-left: 5px solid transparent;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-2px);
+            border-left-color: #00cec9;
+        }
+
+        .t-info h3 {
+            margin: 0 0 5px 0;
+            color: #2d3436;
+            font-size: 16px;
+        }
+
+        .t-info p {
+            margin: 0;
+            color: #636e72;
+            font-size: 13px;
+        }
+
+        .t-subs {
+            margin-top: 5px;
+            font-size: 11px;
+            color: #0984e3;
+            background: #e3f2fd;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        /* ACTIONS */
+        .action-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .btn-edit {
+            color: #fdcb6e;
+            background: #fff7e6;
+        }
+
+        .btn-del {
+            color: #ff7675;
+            background: #ffeaea;
+        }
+
+        /* ================= MODAL STYLES ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
+            display: none;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 700px;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #2d3436;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        /* FORM GRID */
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #00cec9;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .row-1 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #636e72;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            padding: 10px;
+            border: 1px solid #dfe6e9;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #00cec9;
+        }
+
+        /* CHECKBOX GRID FOR CLASSES & SUBJECTS */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dfe6e9;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #2d3436;
+            cursor: pointer;
+        }
+
+        .check-item input {
+            accent-color: #00cec9;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* FOOTER ACTIONS */
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .btn-cancel {
+            background: #dfe6e9;
+            color: #636e72;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-save {
+            background: #00cec9;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-save:hover {
+            background: #01b8b4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="logo-box"><img src="../assets/images/timenroll-logo-short.png" alt="Logo"></div>
+        <nav>
+            <a href="admin-dashboard.html">Dashboard</a>
+            <a href="add-teachers.html" class="active">Teachers</a>
+            <a href="add-students.html">Students</a>
+            <a href="add-classes.html">Classes</a>
+            <a href="timetable.html">Timetable</a>
+            <a href="#" onclick="logout()" style="margin-top: 20px; color: #ffadad;">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <div class="top-action-bar">
+            <div>
+                <h1 class="header-title">Manage Teachers</h1>
+                <p class="header-subtitle">Total Faculty: <span id="teacherCount">0</span></p>
+            </div>
+            <button class="btn-add-new" onclick="openModal()">+ Add New Teacher</button>
+        </div>
+
+        <div id="teacherList">
+            <p style="text-align:center; color:#aaa; margin-top:50px;">Loading faculty data...</p>
+        </div>
+    </main>
+
+
+    <div id="teacherModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Teacher</h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+
+            <input type="hidden" id="editId">
+
+            <div class="form-section">
+                <div class="section-title">Personal Details</div>
+                <div class="row-3">
+                    <div class="input-group">
+                        <label>First Name <span style="color:red">*</span></label>
+                        <input type="text" id="fName" placeholder="Rahul">
+                    </div>
+                    <div class="input-group">
+                        <label>Middle Name</label>
+                        <input type="text" id="mName" placeholder="Kumar">
+                    </div>
+                    <div class="input-group">
+                        <label>Last Name <span style="color:red">*</span></label>
+                        <input type="text" id="lName" placeholder="Sharma">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Contact Information</div>
+                <div class="row-2">
+                    <div class="input-group">
+                        <label>Mobile Number (10 Digits) <span style="color:red">*</span></label>
+                        <input type="number" id="mobile" placeholder="9876543210">
+                    </div>
+                    <div class="input-group">
+                        <label>Emergency Contact <span style="color:red">*</span></label>
+                        <input type="number" id="emergency" placeholder="Parent/Spouse No">
+                    </div>
+                </div>
+                <div class="row-1" style="margin-top:15px;">
+                    <div class="input-group">
+                        <label>Email Address <span style="color:red">*</span></label>
+                        <input type="email" id="email" placeholder="rahul.sharma@college.com">
+                    </div>
+                </div>
+                <div class="row-1" style="margin-top:15px;">
+                    <div class="input-group">
+                        <label>Full Address</label>
+                        <textarea id="address" rows="2" placeholder="Flat No, Area, City..."></textarea>
+                    </div>
+                </div>
+                <div class="row-2" style="margin-top:15px;">
+                    <div class="input-group">
+                        <label>Pin Code</label>
+                        <input type="number" id="pincode" placeholder="411001">
+                    </div>
+                    <div class="input-group">
+                        <label>Login Password <span style="color:red">*</span></label>
+                        <input type="text" id="password" placeholder="Set login password">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Academic Details</div>
+
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <label>Teaches Subjects</label>
+                        <div style="display:flex; gap:5px;">
+                            <input type="text" id="newSubjectName" placeholder="New Subject..."
+                                style="padding:4px 8px; font-size:12px; border:1px solid #ddd; border-radius:4px; width: 100px;">
+                            <button onclick="addQuickSubject()"
+                                style="background:#2d3436; color:white; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; font-size:11px;">+
+                                Add</button>
+                        </div>
+                    </div>
+                    <div id="subjectCheckboxList" class="checkbox-grid">
+                        <span style="color:#aaa; font-size:12px;">Loading subjects...</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Assigned Classes (Can Mark Attendance for)</label>
+                    <div id="classCheckboxList" class="checkbox-grid">
+                        <span style="color:#aaa; font-size:12px;">Loading classes...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn-save" onclick="saveTeacher()" id="btnSave">Save Teacher</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script type="module" src="../js/add-teachers.js"></script>
+</body>
+
+</html>
